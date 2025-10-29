@@ -8,7 +8,7 @@ nodejs 'NodeJS'
 parameters {
 string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'Branch to build from')
 
-string(name: &#39;STUDENT_NAME&#39;, defaultValue: &#39;your name#39;) //provide your name here, no name, no marks
+string(name: 'STUDENT_NAME', defaultValue: 'your name') // provide your name here, no name, no marks
 choice(name: 'ENVIRONMENT', choices: ['dev', 'qa', 'prod'], description: 'Select
 environment')
 booleanParam(name: 'RUN_TESTS', defaultValue: true, description: 'Run Jest tests after build')
