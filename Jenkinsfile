@@ -60,8 +60,7 @@ stage('Package') {
 steps {
 
 echo "Creating zip archive for version ${APP_VERSION}"
-bat 'powershell Compress-Archive -Path build\\* -DestinationPath
-build_%APP_VERSION%.zip'
+bat 'powershell Compress-Archive -Path build\\* -DestinationPath build_%APP_VERSION%.zip'
 }
 }
 
