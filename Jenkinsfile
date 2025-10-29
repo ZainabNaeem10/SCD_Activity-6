@@ -29,7 +29,7 @@ checkout scm
 stage('Install Dependencies') {
 steps {
 echo "Installing required packages..."
-bat 'npm install";
+bat 'npm install';
 }
 }
 
