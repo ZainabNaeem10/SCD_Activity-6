@@ -2,12 +2,12 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'NodeJS'
-    }
+        nodejs 'NodeJS'      
+}
 
     parameters {
         string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'Branch to build from')
-        string(name: 'STUDENT_NAME', defaultValue: 'your name', description: 'Provide your name here, no name, no marks')
+        string(name: 'STUDENT_NAME', defaultValue: 'Zainab') //provide your name here, no name, no marks
         choice(name: 'ENVIRONMENT', choices: ['dev', 'qa', 'prod'], description: 'Select environment')
         booleanParam(name: 'RUN_TESTS', defaultValue: true, description: 'Run Jest tests after build')
     }
@@ -34,13 +34,13 @@ pipeline {
 
         stage('Build') {
             steps {
-                echo "Building version ${APP_VERSION} for ${params.ENVIRONMENT} environment"
+                echo " Building version ${APP_VERSION} for ${params.ENVIRONMENT} environment"
                 bat '''
-                echo Simulating build process...
-                if not exist build mkdir build
-                copy *.js build
-                echo Build completed successfully!
-                echo App version: %APP_VERSION% > build\\version.txt
+                    echo Simulating build process...
+                    if not exist build mkdir build
+                    copy *.js build
+                    echo Build completed successfully!
+                    echo App version: %APP_VERSION% > build\\version.txt
                 '''
             }
         }
@@ -58,7 +58,7 @@ pipeline {
         stage('Package') {
             steps {
                 echo "Creating zip archive for version ${APP_VERSION}"
-                bat '''powershell -Command "Compress-Archive -Path 'build\\*' -DestinationPath 'build_${env:APP_VERSION}.zip' -Force"'''
+                bat 'powershell Compress-Archive -Path build\\* -DestinationPath build_%APP_VERSION%.zip'
             }
         }
 
@@ -75,11 +75,12 @@ pipeline {
             deleteDir()
         }
         success {
-            echo "Pipeline succeeded! Version ${APP_VERSION} built and tested."
+            echo " Pipeline succeeded! Version ${APP_VERSION} built and tested."
         }
         failure {
-            echo "Pipeline failed! Check console output for details."
+            echo " Pipeline failed! Check console output for details."
         }
     }
 }
+
 
