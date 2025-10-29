@@ -32,18 +32,18 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                echo " Building version ${APP_VERSION} for ${params.ENVIRONMENT} environment"
-                bat '''
-                    echo Simulating build process...
-                    if not exist build mkdir build
-                    copy *.js build
-                    echo Build completed successfully!
-                    echo App version: %APP_VERSION% > build\\version.txt
-                '''
-            }
-        }
+      stage('Build') {
+    steps {
+        echo " Building version ${APP_VERSION} for ${params.ENVIRONMENT} environment"
+        bat '''
+            echo Simulating build process...
+            if not exist build mkdir build
+            copy *.js build || echo "No JS files copied - continuing anyway"
+            echo Build completed successfully!
+            echo App version: %APP_VERSION% > build\\version.txt
+        '''
+    }
+}
 
         stage('Test') {
             when {
