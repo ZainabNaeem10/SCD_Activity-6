@@ -66,8 +66,7 @@ bat 'powershell Compress-Archive -Path build\\* -DestinationPath build_%APP_VERS
 
 stage('Deploy (Simulation)') {
 steps {
-echo "Simulating deployment of version ${APP_VERSION} to
-${params.ENVIRONMENT}"
+echo "Simulating deployment of version ${APP_VERSION} to ${params.ENVIRONMENT}"
 }
 }
 }
